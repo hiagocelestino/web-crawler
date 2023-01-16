@@ -21,18 +21,19 @@ class ScraperNotebook(ScraperBase):
     
     def captura_dados(self):
         for item in self.itens:
-            preco = item.query_selector('div.caption .price').inner_text()
             descricao = item.query_selector('p.description').inner_text()
-            reviews = item.query_selector('div.ratings p.pull-right').inner_text()
-            rating = item.query_selector('div.ratings p[data-rating]').get_attribute('data-rating')
-            
-            dict_item = {
-                "preco": self.corrige_valor_notebook(preco),
-                "descricao": descricao,
-                "reviews": self.corrige_valor_reviews(reviews),
-                "rating": rating
-            }
-            self.list_notebooks.append(dict_item)
+            if 'lenovo' in descricao.lower():
+                preco = item.query_selector('div.caption .price').inner_text()
+                reviews = item.query_selector('div.ratings p.pull-right').inner_text()
+                rating = item.query_selector('div.ratings p[data-rating]').get_attribute('data-rating')
+                
+                dict_item = {
+                    "preco": self.corrige_valor_notebook(preco),
+                    "descricao": descricao,
+                    "reviews": self.corrige_valor_reviews(reviews),
+                    "rating": rating
+                }
+                self.list_notebooks.append(dict_item)
 
     def ordenar_itens(self, chave_ordenacao):
         self.list_notebooks = sorted(self.list_notebooks, key = lambda obj: obj[chave_ordenacao])

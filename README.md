@@ -25,7 +25,15 @@ pip install -r requirements.txt
 python app.py
 ```
 
-## OBS:
+## Rota que Executa Robô
+
+Localmente:
+```
+localhost:5000/scraper/notebooks/
+```
+
+
+### OBS:
 Caso ocorra algum erro na chamada da rota '/scraper/notebooks/', confira se ja executou o comando:
 ```
 playwright install
